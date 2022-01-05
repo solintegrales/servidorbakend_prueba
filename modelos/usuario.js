@@ -40,4 +40,4 @@ Uschema.method('toJSON', function(){
     return object;
 })
 
-module.exports = model('usuario', Uschema);
+module.exports = model('Usuario', Uschema);

@@ -3,22 +3,34 @@
 
 //--------llamo al router
 const {Router}=require('express');
+const fileUpload = require('express-fileupload');
 const {check} = require('express-validator');
-const {verusuario, crearusuario, editarusuario, borrarusuario, cambiarestado}=require('../controladores/usuario');
+const {verusuario, crearusuario, editarusuario, borrarusuario, cambiarestado, buscaru, subirimg}=require('../controladores/usuario');
 const { validarJWT } = require('../validaciones/validarjwt');
 const {validarcampos}=require('../validaciones/validar_campos');
 const router = Router();
 //-----------------------
 
+router.use(fileUpload());
+
 //-----ver usuarios
 router.get('/', validarJWT, verusuario);
 //-----------------------------------
+
+//---------------buscar usuario
+//router.get('/:coleccion/:dato', validarJWT, buscaru);
+router.get('/usuarios/:dato', validarJWT, buscaru);
+//-------------------------
+
+//--------------subir imagen 
+router.put('/img/:uid', validarJWT, subirimg);
+//-----------------------------
 
 //-----crear usuarios
 router.post(
     '/',
     [
-        validarJWT,
+        //validarJWT,
         check('nombre', 'El nombre es obligatorio').not().isEmpty(),
         check('clave', 'La clave es obligatoria').not().isEmpty(),
         check('email', 'El Email es obligatorio').isEmail(),

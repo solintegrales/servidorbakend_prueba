@@ -19,4 +19,4 @@ Prschema.method('toJSON', function(){
     return object;
 })
 
-module.exports = model('principal', Prschema);
+module.exports = model('Principal', Prschema);

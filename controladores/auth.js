@@ -17,7 +17,7 @@ const login = async(req, res = response )=>{
         if(!usuarioDB){
             return res.status(404).json({
                 ok: false,
-                msg: 'Email no valido'
+                msg: 'Email no Existe en los registros'
             }); 
         }
 
@@ -36,7 +36,7 @@ const login = async(req, res = response )=>{
 
         res.json({
             ok: true,
-            msg: 'Hola',
+            //msg: 'Hola',
             token
         }); 
     } catch (error) {
@@ -47,8 +47,21 @@ const login = async(req, res = response )=>{
         })
     }    
 };
+
+const renewtoken = async(req, res =response) =>{
+
+    const uid = req.uid;
+    //generar JWT
+    const token = await generarJWT(uid);
+
+    res.json({
+        ok: true,
+        token
+    })
+}
 //-------------------------------------
 
 module.exports = {
     login,
+    renewtoken
 }

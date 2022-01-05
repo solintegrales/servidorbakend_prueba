@@ -1,7 +1,8 @@
 //--------llamo al router
 const { Router }=require('express');
 const { check } = require('express-validator');
-const { login } = require('../controladores/auth');
+const { login, renewtoken } = require('../controladores/auth');
+const { validarJWT } = require('../validaciones/validarjwt');
 const { validarcampos } = require('../validaciones/validar_campos');
 const router = Router();
 
@@ -13,6 +14,12 @@ router.post(
         validarcampos
     ],
     login
+)
+
+router.get(
+    '/renew',
+    validarJWT,
+    renewtoken  
 )
 
 
